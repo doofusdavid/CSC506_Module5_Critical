@@ -1,7 +1,10 @@
+import math
+
+
 class MaxHeap:
 
-    def __init__(self):
-        self.heap_array = []
+    def __init__(self, array=[]):
+        self.heap_array = array
 
     def percolate_up(self, node_index):
         while node_index > 0:
@@ -76,3 +79,24 @@ class MaxHeap:
 
         # return the max value
         return max_value
+
+    def __str__(self):
+        """Pretty-print a tree.
+        total_width depends on your input size"""
+        total_width = 50
+        fill = ' '
+        output = ""
+        last_row = -1
+        for i, n in enumerate(self.heap_array):
+            if i:
+                row = int(math.floor(math.log(i+1, 2)))
+            else:
+                row = 0
+            if row != last_row:
+                output = output + '\n'
+            columns = 2**row
+            col_width = int(math.floor((total_width * 1.0) / columns))
+            output = output + str(n).center(col_width, fill)
+            last_row = row
+        output += "\n" + '-' * total_width
+        return output
